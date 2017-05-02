@@ -8,7 +8,7 @@
 using std::cout;
 using std::endl;
 using std::vector;
-using namespace std;
+using std::ifstream;
 
 MWCZ readDIMACS(char * fname) {
     string s;
