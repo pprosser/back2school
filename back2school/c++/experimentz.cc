@@ -17,7 +17,7 @@ MWCZ readDIMACS(char * fname) {
     int n;
     MWCZ mwc;
     ifstream fin(fname);
-    if (! fin.is_open()) { // IS THERE A WAY TO THROW AN IO EXCEPTION?
+    if (! fin) { // IS THERE A WAY TO THROW AN IO EXCEPTION?
         cerr << "failed to open file named " << fname << endl;
         return mwc;
     }
@@ -28,7 +28,7 @@ MWCZ readDIMACS(char * fname) {
     vector<int> degree(n, 0);
     vector<weight_type> weight(n, 1);
     int u, v;
-    while (! fin.eof()) {
+    while (fin) {
         fin >> s;
         if (s == "n") {
             fin >> v;
