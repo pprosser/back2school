@@ -61,15 +61,14 @@ class MWCZ {
 
         void save(const vector<int> & c, long current_weight) {
             solution.assign(n, 0);
-            for (int i = 0 ; i < c.size() ; i++)
-                solution[c[i]] = 1;
+            for (const auto & v : c)
+                solution[v] = 1;
             max_weight = current_weight;
         }
 
         void expand(int depth, long c_weight, long p_weight) {
             nodes++;
-            int m = p[depth].size();
-            for (int i = m - 1 ; i >= 0 ; i--) {
+            for (int i = p[depth].size() - 1 ; i >= 0 ; i--) {
                 if (c_weight + p_weight <= max_weight)
                     return;
                 int v = p[depth][i];
