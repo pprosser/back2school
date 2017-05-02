@@ -50,7 +50,7 @@ class MWC {
             long p_weight = 0;
             for (int i = 0 ; i < n ; i++) {
                 p[i] = n - i - 1; // backwards, as in MWC.java
-                p_weight = p_weight + weight[i]; // sum of all weights
+                p_weight += weight[i]; // sum of all weights
             }
             time_point<steady_clock> start_time = steady_clock::now();
             expand(p, c, 0, p_weight);
@@ -77,7 +77,7 @@ class MWC {
                 for (int j = 0 ; j < i ; j++)
                     if (adjacency[v][p[j]] == 1) {
                         new_p.push_back(p[j]);
-                        new_p_weight = new_p_weight + weight[p[j]];
+                        new_p_weight += weight[p[j]];
                     }
                 if (c_weight + weight[v] > max_weight)
                     save(c, c_weight + weight[v]);
@@ -85,7 +85,7 @@ class MWC {
                     expand(new_p, c, c_weight + weight[v], new_p_weight);
                 c.pop_back();
                 p.pop_back();
-                p_weight = p_weight - weight[v];
+                p_weight -= weight[v];
             }
         }
         /*
