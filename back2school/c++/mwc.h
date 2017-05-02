@@ -10,8 +10,6 @@ using std::chrono::steady_clock;
 using std::chrono::milliseconds;
 using std::chrono::time_point;
 
-using namespace std;
-
 class MWC {
     public:
         long nodes, maxWeight;

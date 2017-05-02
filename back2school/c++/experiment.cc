@@ -5,10 +5,12 @@
 #include <stdlib.h>
 #include <vector>
 
+using std::cerr;
 using std::cout;
 using std::endl;
 using std::vector;
-using std::fstream;
+using std::ifstream;
+using std::string;
 
 MWC readDIMACS(char * fname) {
     string s;
