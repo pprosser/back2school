@@ -10,17 +10,20 @@ using std::chrono::steady_clock;
 using std::chrono::milliseconds;
 using std::chrono::time_point;
 
+using weight_type = unsigned long;
+
 /*
  * Translation of MWC.java
  */
 class MWCZ {
     public:
-        long nodes, max_weight;
+        long nodes;
+        weight_type max_weight;
         milliseconds cpu_time;
         int n;
         vector<vector<int> > adjacency;
         vector<int> degree;
-        vector<int> weight;
+        vector<weight_type> weight;
         vector<int> solution;
         vector<vector<int> > p; // candidate sets
         vector<int> c; // growing clique
@@ -30,7 +33,7 @@ class MWCZ {
         {
         }
 
-        MWCZ(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<int> & weight) :
+        MWCZ(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<weight_type> & weight) :
             nodes(0),
             max_weight(0),
             n(n),
@@ -51,7 +54,7 @@ class MWCZ {
         }
 
         void search() {
-            long p_weight = 0;
+            weight_type p_weight = 0;
             for (int i = 0 ; i < n ; i++) {
                 p[0].push_back(n - i - 1); // backwards, as in MWC.java
                 p_weight += weight[i]; // sum of all weights
@@ -62,21 +65,21 @@ class MWCZ {
             cpu_time = duration_cast<milliseconds>(steady_clock::now() - start_time);
         }
 
-        void save(const vector<int> & c, long current_weight) {
+        void save(const vector<int> & c, weight_type current_weight) {
             solution.assign(n, 0);
             for (const auto & v : c)
                 solution[v] = 1;
             max_weight = current_weight;
         }
 
-        void expand(int depth, long c_weight, long p_weight) {
+        void expand(int depth, weight_type c_weight, weight_type p_weight) {
             nodes++;
             for (int i = p[depth].size() - 1 ; i >= 0 ; i--) {
                 if (c_weight + p_weight <= max_weight)
                     return;
                 int v = p[depth][i];
                 c.push_back(v);
-                long new_p_weight = 0;
+                weight_type new_p_weight = 0;
                 p[depth + 1].clear();
                 for (int j = 0 ; j < i ; j++)
                     if (adjacency[v][p[depth][j]] == 1) {

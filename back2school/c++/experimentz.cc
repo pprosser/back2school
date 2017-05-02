@@ -26,7 +26,7 @@ MWCZ readDIMACS(char * fname) {
     fin >> n;
     vector<vector<int> > a(n, vector<int>(n, 0));
     vector<int> degree(n, 0);
-    vector<int> weight(n, 1);
+    vector<weight_type> weight(n, 1);
     int u, v;
     while (! fin.eof()) {
         fin >> s;

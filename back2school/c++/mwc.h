@@ -10,17 +10,20 @@ using std::chrono::steady_clock;
 using std::chrono::milliseconds;
 using std::chrono::time_point;
 
+using weight_type = unsigned long;
+
 /*
  * Translation of MWC.java
  */
 class MWC {
     public:
-        long nodes, max_weight;
+        long nodes;
+        weight_type max_weight;
         milliseconds cpu_time;
         int n;
         vector<vector<int> > adjacency;
         vector<int> degree;
-        vector<int> weight;
+        vector<weight_type> weight;
         vector<int> solution;
 
         MWC() :
@@ -28,7 +31,7 @@ class MWC {
         {
         }
 
-        MWC(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<int> & weight) :
+        MWC(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<weight_type> & weight) :
             nodes(0),
             max_weight(0),
             n(n),
@@ -50,7 +53,7 @@ class MWC {
         void search() {
             vector<int> p(n, 0);
             vector<int> c;
-            long p_weight = 0;
+            weight_type p_weight = 0;
             for (int i = 0 ; i < n ; i++) {
                 p[i] = n - i - 1; // backwards, as in MWC.java
                 p_weight += weight[i]; // sum of all weights
@@ -60,14 +63,14 @@ class MWC {
             cpu_time = duration_cast<milliseconds>(steady_clock::now() - start_time);
         }
 
-        void save(const vector<int> & c, long current_weight) {
+        void save(const vector<int> & c, weight_type current_weight) {
             solution.assign(n, 0);
             for (const auto & v : c)
                 solution[v] = 1;
             max_weight = current_weight;
         }
 
-        void expand(vector<int> & p, vector<int> & c, long c_weight, long p_weight) {
+        void expand(vector<int> & p, vector<int> & c, weight_type c_weight, weight_type p_weight) {
             nodes++;
             for (int i = p.size() - 1 ; i >= 0 ; i--) {
                 if (c_weight + p_weight <= max_weight)
@@ -75,7 +78,7 @@ class MWC {
                 int v = p[i];
                 c.push_back(v);
                 vector<int> new_p;
-                long new_p_weight = 0;
+                weight_type new_p_weight = 0;
                 for (int j = 0 ; j < i ; j++)
                     if (adjacency[v][p[j]] == 1) {
                         new_p.push_back(p[j]);
