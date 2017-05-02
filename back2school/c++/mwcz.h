@@ -17,7 +17,7 @@ using weight_type = unsigned long;
  */
 class MWCZ {
     public:
-        long nodes;
+        unsigned long long nodes;
         weight_type max_weight;
         milliseconds cpu_time;
         int n;
