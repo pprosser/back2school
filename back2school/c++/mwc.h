@@ -58,8 +58,7 @@ class MWC {
         }
 
         void save(const vector<int> & C, long currentWeight) {
-            for (int i = 0 ; i < n ; i++)
-                solution[i] = 0;
+            solution.assign(n, 0);
             for (int i = 0 ; i < C.size() ; i++)
                 solution[C[i]] = 1;
             maxWeight = currentWeight;
