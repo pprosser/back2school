@@ -12,7 +12,7 @@ using std::vector;
 using std::ifstream;
 using std::string;
 
-MWCZ readDIMACS(char * fname) {
+MWCZ readDIMACS(const string & fname) {
     string s;
     int n;
     MWCZ mwc;
