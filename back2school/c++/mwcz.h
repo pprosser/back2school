@@ -27,7 +27,7 @@ class MWCZ {
         {
         }
 
-        MWCZ(int n, vector<vector<int> > A, vector<int> degree, vector<int> weight) :
+        MWCZ(int n, const vector<vector<int> > & A, const vector<int> & degree, const vector<int> & weight) :
             nodes(0),
             maxWeight(0),
             n(n),
@@ -60,7 +60,7 @@ class MWCZ {
             cpuTime = duration_cast<milliseconds>(steady_clock::now() - start_time);
         }
 
-        void save(vector<int> C, long currentWeight) {
+        void save(const vector<int> & C, long currentWeight) {
             for (int i = 0 ; i < n ; i++)
                 solution[i] = 0;
             for (int i = 0 ; i < C.size() ; i++)

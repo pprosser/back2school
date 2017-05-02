@@ -25,7 +25,7 @@ class MWC {
         {
         }
 
-        MWC(int n, vector<vector<int> > A, vector<int> degree, vector<int> weight) :
+        MWC(int n, const vector<vector<int> > & A, const vector<int> & degree, const vector<int> & weight) :
             nodes(0),
             maxWeight(0),
             n(n),
@@ -57,7 +57,7 @@ class MWC {
             cpuTime = duration_cast<milliseconds>(steady_clock::now() - start_time);
         }
 
-        void save(vector<int> C, long currentWeight) {
+        void save(const vector<int> & C, long currentWeight) {
             for (int i = 0 ; i < n ; i++)
                 solution[i] = 0;
             for (int i = 0 ; i < C.size() ; i++)
@@ -65,7 +65,7 @@ class MWC {
             maxWeight = currentWeight;
         }
 
-        void expand(vector<int> P, vector<int> C, long cWeight, long pWeight) {
+        void expand(vector<int> & P, vector<int> & C, long cWeight, long pWeight) {
             nodes++;
             int m = P.size();
             for (int i = m - 1 ; i >= 0 ; i--) {
