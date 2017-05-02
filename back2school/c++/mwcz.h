@@ -10,6 +10,9 @@ using std::chrono::steady_clock;
 using std::chrono::milliseconds;
 using std::chrono::time_point;
 
+/*
+ * Translation of MWC.java
+ */
 class MWCZ {
     public:
         long nodes, max_weight;
@@ -88,7 +91,4 @@ class MWCZ {
                 p_weight -= weight[v];
             }
         }
-        /*
-         * Translation of MWC.java
-         */
 };
