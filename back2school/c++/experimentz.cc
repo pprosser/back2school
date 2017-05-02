@@ -17,10 +17,9 @@ MWCZ readDIMACS(char * fname) {
     int n;
     MWCZ mwc;
     ifstream fin(fname);
-    if (! fin) { // IS THERE A WAY TO THROW AN IO EXCEPTION?
-        cerr << "failed to open file named " << fname << endl;
-        return mwc;
-    }
+    if (! fin)
+        throw ifstream::failure(string("failed to open file named ") + fname);
+
     fin >> s; // p
     fin >> s; // edge
     fin >> n;
