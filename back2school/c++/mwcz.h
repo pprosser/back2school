@@ -28,11 +28,6 @@ class MWCZ {
         vector<vector<int> > p; // candidate sets
         vector<int> c; // growing clique
 
-        MWCZ() :
-            n(-1)
-        {
-        }
-
         MWCZ(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<weight_type> & weight) :
             nodes(0),
             max_weight(0),

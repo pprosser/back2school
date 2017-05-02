@@ -26,11 +26,6 @@ class MWC {
         vector<weight_type> weight;
         vector<int> solution;
 
-        MWC() :
-            n(-1)
-        {
-        }
-
         MWC(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<weight_type> & weight) :
             nodes(0),
             max_weight(0),
