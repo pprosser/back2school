@@ -9,6 +9,6 @@ clean :
 experiment : experiment.cc mwc.h
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
-experimentz : experimentz.cc mwc.h
+experimentz : experimentz.cc mwcz.h
 	$(CXX) $(CXXFLAGS) -o $@ $^
 
