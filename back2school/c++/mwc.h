@@ -40,7 +40,7 @@ class MWC {
             cout << max_weight << " " << nodes << " " << cpu_time.count() << endl;
             for (int i = 0 ; i < n ; i++)
                 if (solution[i] == 1)
-                    cout << i+1 << " ";
+                    cout << i + 1 << " ";
             cout << endl;
         }
 

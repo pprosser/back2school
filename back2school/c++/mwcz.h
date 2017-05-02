@@ -83,7 +83,7 @@ class MWCZ {
                     }
                 if (c_weight + weight[v] > max_weight)
                     save(c, c_weight + weight[v]);
-                if (! p[depth+1].empty())
+                if (! p[depth + 1].empty())
                     expand(depth + 1, c_weight + weight[v], new_p_weight);
                 c.pop_back();
                 p_weight -= weight[v];
