@@ -1,17 +1,21 @@
 #include <iostream>
 #include <vector>
-#include <ctime>
+#include <chrono>
 
 using std::cout;
 using std::endl;
 using std::vector;
+using std::chrono::duration_cast;
+using std::chrono::steady_clock;
+using std::chrono::milliseconds;
+using std::chrono::time_point;
 
 using namespace std;
 
 class MWCZ {
     public:
         long nodes, maxWeight;
-        long double cpuTime;
+        milliseconds cpuTime;
         int n;
         vector<vector<int> > A;
         vector<int> degree;
@@ -38,7 +42,7 @@ class MWCZ {
         }
 
         void display() {
-            cout << maxWeight << " " << nodes << " " << cpuTime * 1000 << endl;
+            cout << maxWeight << " " << nodes << " " << cpuTime.count() << endl;
             for (int i = 0 ; i < n ; i++)
                 if (solution[i] == 1)
                     cout << i + 1 << " ";
@@ -52,9 +56,10 @@ class MWCZ {
                 P[0].push_back(n - i - 1); // backwards, as in MWC.java
                 pWeight = pWeight + weight[i]; // sum of all weights
             }
-            cpuTime = time(0);
+
+            time_point<steady_clock> start_time = steady_clock::now();
             expand(0, 0, pWeight);
-            cpuTime = time(0) - cpuTime;
+            cpuTime = duration_cast<milliseconds>(steady_clock::now() - start_time);
         }
 
         void save(vector<int> C, long currentWeight) {
