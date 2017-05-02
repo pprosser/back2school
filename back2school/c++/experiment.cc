@@ -42,7 +42,6 @@ MWC readDIMACS(char * fname) {
             degree[u - 1]++;
         }
     }
-    fin.close();
     return MWC(n, a, degree, weight);
 }
 
