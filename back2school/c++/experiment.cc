@@ -24,7 +24,7 @@ MWC readDIMACS(char * fname) {
     fin >> s; // p
     fin >> s; // edge
     fin >> n;
-    vector<vector<int> > A(n, vector<int>(n, 0));
+    vector<vector<int> > a(n, vector<int>(n, 0));
     vector<int> degree(n, 0);
     vector<int> weight(n, 1);
     int u, v;
@@ -37,13 +37,13 @@ MWC readDIMACS(char * fname) {
         if (s == "e") {
             fin >> u;
             fin >> v;
-            A[u - 1][v - 1] = A[v - 1][u - 1] = 1;
+            a[u - 1][v - 1] = a[v - 1][u - 1] = 1;
             degree[v - 1]++;
             degree[u - 1]++;
         }
     }
     fin.close();
-    return MWC(n, A, degree, weight);
+    return MWC(n, a, degree, weight);
 }
 
 int main(int argc, char * argv[]) {

@@ -12,10 +12,10 @@ using std::chrono::time_point;
 
 class MWC {
     public:
-        long nodes, maxWeight;
-        milliseconds cpuTime;
+        long nodes, max_weight;
+        milliseconds cpu_time;
         int n;
-        vector<vector<int> > A;
+        vector<vector<int> > adjacency;
         vector<int> degree;
         vector<int> weight;
         vector<int> solution;
@@ -25,11 +25,11 @@ class MWC {
         {
         }
 
-        MWC(int n, const vector<vector<int> > & A, const vector<int> & degree, const vector<int> & weight) :
+        MWC(int n, const vector<vector<int> > & adjacency, const vector<int> & degree, const vector<int> & weight) :
             nodes(0),
-            maxWeight(0),
+            max_weight(0),
             n(n),
-            A(A),
+            adjacency(adjacency),
             degree(degree),
             weight(weight),
             solution(n, 0)
@@ -37,7 +37,7 @@ class MWC {
         }
 
         void display() {
-            cout << maxWeight << " " << nodes << " " << cpuTime.count() << endl;
+            cout << max_weight << " " << nodes << " " << cpu_time.count() << endl;
             for (int i = 0 ; i < n ; i++)
                 if (solution[i] == 1)
                     cout << i+1 << " ";
@@ -45,47 +45,47 @@ class MWC {
         }
 
         void search() {
-            vector<int> P(n, 0);
-            vector<int> C;
-            long pWeight = 0;
+            vector<int> p(n, 0);
+            vector<int> c;
+            long p_weight = 0;
             for (int i = 0 ; i < n ; i++) {
-                P[i] = n - i - 1; // backwards, as in MWC.java
-                pWeight = pWeight + weight[i]; // sum of all weights
+                p[i] = n - i - 1; // backwards, as in MWC.java
+                p_weight = p_weight + weight[i]; // sum of all weights
             }
             time_point<steady_clock> start_time = steady_clock::now();
-            expand(P, C, 0, pWeight);
-            cpuTime = duration_cast<milliseconds>(steady_clock::now() - start_time);
+            expand(p, c, 0, p_weight);
+            cpu_time = duration_cast<milliseconds>(steady_clock::now() - start_time);
         }
 
-        void save(const vector<int> & C, long currentWeight) {
+        void save(const vector<int> & c, long current_weight) {
             solution.assign(n, 0);
-            for (int i = 0 ; i < C.size() ; i++)
-                solution[C[i]] = 1;
-            maxWeight = currentWeight;
+            for (int i = 0 ; i < c.size() ; i++)
+                solution[c[i]] = 1;
+            max_weight = current_weight;
         }
 
-        void expand(vector<int> & P, vector<int> & C, long cWeight, long pWeight) {
+        void expand(vector<int> & p, vector<int> & c, long c_weight, long p_weight) {
             nodes++;
-            int m = P.size();
+            int m = p.size();
             for (int i = m - 1 ; i >= 0 ; i--) {
-                if (cWeight + pWeight <= maxWeight)
+                if (c_weight + p_weight <= max_weight)
                     return;
-                int v = P[i];
-                C.push_back(v);
-                vector<int> newP;
-                long newPWeight = 0;
+                int v = p[i];
+                c.push_back(v);
+                vector<int> new_p;
+                long new_p_weight = 0;
                 for (int j = 0 ; j < i ; j++)
-                    if (A[v][P[j]] == 1) {
-                        newP.push_back(P[j]);
-                        newPWeight = newPWeight + weight[P[j]];
+                    if (adjacency[v][p[j]] == 1) {
+                        new_p.push_back(p[j]);
+                        new_p_weight = new_p_weight + weight[p[j]];
                     }
-                if (cWeight + weight[v] > maxWeight)
-                    save(C,cWeight + weight[v]);
-                if (! newP.empty())
-                    expand(newP, C, cWeight + weight[v], newPWeight);
-                C.pop_back();
-                P.pop_back();
-                pWeight = pWeight - weight[v];
+                if (c_weight + weight[v] > max_weight)
+                    save(c, c_weight + weight[v]);
+                if (! new_p.empty())
+                    expand(new_p, c, c_weight + weight[v], new_p_weight);
+                c.pop_back();
+                p.pop_back();
+                p_weight = p_weight - weight[v];
             }
         }
         /*
