@@ -13,28 +13,28 @@ using std::ifstream;
 using std::string;
 
 MWC readDIMACS(const string & fname) {
-    string s;
-    int n;
     ifstream fin(fname);
     if (! fin)
         throw ifstream::failure(string("failed to open file named ") + fname);
 
+    string s;
+    int n;
     fin >> s; // p
     fin >> s; // edge
     fin >> n;
     vector<vector<int> > a(n, vector<int>(n, 0));
     vector<int> degree(n, 0);
     vector<weight_type> weight(n, 1);
-    int u, v;
     while (fin) {
         fin >> s;
         if (s == "n") {
+            int v;
             fin >> v;
             fin >> weight[v - 1];
         }
         if (s == "e") {
-            fin >> u;
-            fin >> v;
+            int u, v;
+            fin >> u >> v;
             a[u - 1][v - 1] = a[v - 1][u - 1] = 1;
             degree[v - 1]++;
             degree[u - 1]++;
