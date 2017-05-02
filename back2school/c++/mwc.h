@@ -18,19 +18,20 @@ class MWC {
         vector<int> weight;
         vector<int> solution;
 
-        MWC() {
-            n = -1;
+        MWC() :
+            n(-1)
+        {
         }
 
-        MWC(int n, vector<vector<int> > A, vector<int> degree, vector<int> weight) {
-            this->n = n;
-            this->A = A;
-            this->degree = degree;
-            this->weight = weight;
-            nodes = 0;
-            maxWeight = 0;
-            vector<int> temp(n, 0);
-            solution = temp;
+        MWC(int n, vector<vector<int> > A, vector<int> degree, vector<int> weight) :
+            nodes(0),
+            maxWeight(0),
+            n(n),
+            A(A),
+            degree(degree),
+            weight(weight),
+            solution(n, 0)
+        {
         }
 
         void display() {

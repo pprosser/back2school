@@ -20,21 +20,21 @@ class MWCZ {
         vector<vector<int> > P; // candidate sets
         vector<int> C; // growing clique
 
-        MWCZ() {
-            n = -1;
+        MWCZ() :
+            n(-1)
+        {
         }
 
-        MWCZ(int n, vector<vector<int> > A, vector<int> degree, vector<int> weight) {
-            this->n = n;
-            this->A = A;
-            this->degree = degree;
-            this->weight = weight;
-            nodes = 0;
-            maxWeight = 0;
-            vector<int> tempV(n, 0);
-            solution = tempV;
-            vector<vector<int> > tempP(n+1,vector<int>(0, 0));
-            P = tempP;
+        MWCZ(int n, vector<vector<int> > A, vector<int> degree, vector<int> weight) :
+            nodes(0),
+            maxWeight(0),
+            n(n),
+            A(A),
+            degree(degree),
+            weight(weight),
+            solution(n, 0),
+            P(n + 1, vector<int>(0, 0))
+        {
         }
 
         void display() {
