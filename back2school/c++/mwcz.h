@@ -48,7 +48,6 @@ class MWCZ {
         }
 
         void search() {
-            vector<int> c;
             long p_weight = 0;
             for (int i = 0 ; i < n ; i++) {
                 p[0].push_back(n - i - 1); // backwards, as in MWC.java
