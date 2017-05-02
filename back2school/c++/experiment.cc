@@ -15,7 +15,6 @@ using std::string;
 MWC readDIMACS(const string & fname) {
     string s;
     int n;
-    MWC mwc;
     ifstream fin(fname);
     if (! fin)
         throw ifstream::failure(string("failed to open file named ") + fname);
